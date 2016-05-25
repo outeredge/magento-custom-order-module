@@ -1,0 +1,21 @@
+{
+    "name": "outeredge/magento-custom-order-module",
+    "type": "magento-module",
+    "description": "Create Custom Order for Magento 1.9",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "outer/edge",
+            "email": "support@outeredgeuk.com"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "extra": {
+        "map": [
+            ["app/code/local/Edge/CustomOrder", "app/code/local/Edge/CustomOrder"],
+            ["app/etc/modules/Edge_CustomOrder.xml", "app/etc/modules/Edge_CustomOrder.xml"]
+        ]
+    }
+}
