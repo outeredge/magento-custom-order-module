@@ -15,7 +15,10 @@
     "extra": {
         "map": [
             ["app/code/local/Edge/CustomOrder", "app/code/local/Edge/CustomOrder"],
-            ["app/etc/modules/Edge_CustomOrder.xml", "app/etc/modules/Edge_CustomOrder.xml"]
+            ["app/etc/modules/Edge_CustomOrder.xml", "app/etc/modules/Edge_CustomOrder.xml"],
+            ["app/design/adminhtml/default/default/layout/edge/customorder.xml", "app/design/adminhtml/default/default/layout/edge/customorder.xml"],
+            ["app/locale/en_GB/template/email/email_custom_order.html", "app/locale/en_GB/template/email/email_custom_order.html"],
+            ["js/edge/customorder/customorder.js", "js/edge/customorder/customorder.js"]
         ]
     }
 }

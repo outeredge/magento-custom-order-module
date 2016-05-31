@@ -4,6 +4,9 @@
         <Edge_CustomOrder>
             <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Adminhtml/>
+            </depends>
         </Edge_CustomOrder>
     </modules>
 </config>

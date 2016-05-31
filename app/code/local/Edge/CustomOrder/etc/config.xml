@@ -6,33 +6,53 @@
         </Edge_CustomOrder>
     </modules>
     <global>
-        <models>
-            <customorder>
-                <class>Edge_CustomOrder_Model</class>
-            </customorder>
-        </models>
         <helpers>
             <customorder>
                 <class>Edge_CustomOrder_Helper</class>
             </customorder>
         </helpers>
+        <models>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_create>Edge_CustomOrder_Model_Adminhtml_Sales_Order_Create</sales_order_create>
+                </rewrite>
+            </adminhtml>
+        </models>
         <blocks>
-            <customorder>
-                <class>Edge_CustomOrder_Block</class>
-            </customorder>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_create_sidebar>Edge_CustomOrder_Block_Adminhtml_Sales_Order_Create_Sidebar</sales_order_create_sidebar>
+                </rewrite>
+            </adminhtml>
         </blocks>
-        <adminhtml>
-            <events>
-                <adminhtml_widget_container_html_before>
-                    <observers>
-                        <your_module>
-                            <class>Edge_CustomOrder_Model_Observer</class>
-                            <type>singleton</type>
-                            <method>addButtonOrderView</method>
-                        </your_module>
-                    </observers>
-                </adminhtml_widget_container_html_before>
-            </events>
-        </adminhtml>
+        <template>
+            <email>
+                <email_custom_order_template translate="label" module="customorder">
+                    <label>Email Custom Order template</label>
+                    <file>email_custom_order.html</file>
+                    <type>html</type>
+                </email_custom_order_template>
+            </email>
+        </template>
     </global>
+    <adminhtml>
+         <layout>
+            <updates>
+                <customorder>
+                    <file>edge/customorder.xml</file>
+                </customorder>
+            </updates>
+        </layout>
+    </adminhtml>
+    <admin>
+        <routers>
+            <customorder>
+                <use>admin</use>
+                <args>
+                    <module>Edge_CustomOrder</module>
+                    <frontName>customorder</frontName>
+                </args>
+            </customorder>
+        </routers>
+    </admin>
 </config>
