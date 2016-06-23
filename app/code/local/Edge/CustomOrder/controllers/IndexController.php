@@ -12,7 +12,8 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
                 /* @var $translate Mage_Core_Model_Translate */
                 $translate->setTranslateInline(false);
                 $storeId = Mage::app()->getStore()->getStoreId();
-                $templateConfigPath = 'customorder/email/email_custom_order_template';
+                
+                $templateConfigPath = 'customorder/email/customorder_template';
                 $template = Mage::getStoreConfig($templateConfigPath, $storeId);
                 $mailTemplate = Mage::getModel('core/email_template');
                 $mailTemplate->setDesignConfig(array('area' => 'frontend', 'store' => $storeId))

@@ -27,11 +27,11 @@
         </blocks>
         <template>
             <email>
-                <email_custom_order_template translate="label" module="customorder">
-                    <label>Email Custom Order template</label>
-                    <file>email_custom_order.html</file>
+                <customorder_email_customorder_template translate="label" module="customorder">
+                    <label>Custom Order Email Template</label>
+                    <file>edge_custom_order.html</file>
                     <type>html</type>
-                </email_custom_order_template>
+                </customorder_email_customorder_template>
             </email>
         </template>
     </global>
