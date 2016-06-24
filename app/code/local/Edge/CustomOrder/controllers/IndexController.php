@@ -22,7 +22,8 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
                         'general',
                         $quote->getCustomerEmail(),
                         $quote->getCustomerFirstName(),
-                        array('data' => $quote->getData())
+                        array('data' => $quote->getData(),
+                              'url' => Mage::helper('checkout/cart')->getCartUrl())
                     );
 
                 $translate->setTranslateInline(true);
