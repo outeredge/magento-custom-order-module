@@ -17,11 +17,17 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
         $dataQuoteItems = array();
         foreach ($quoteItems->getData() as $item) {
             $product = Mage::getModel('catalog/product')->load($item['product_id']);
+                $optionsToAdd = array();
                 foreach ($product->getOptions() as $o) {
-                    $optionsToAdd = Mage::getModel('sales/quote_item_option')->getCollection()
+                    $result = Mage::getModel('sales/quote_item_option')->getCollection()
                         ->addFieldToFilter('code', 'option_'.$o->getOptionId())
-                        ->addFieldToSelect('value', 'custom_options')
+                        ->addFieldToSelect('value')
                         ->getFirstItem()->getData();
+
+                    if ($result){
+                        $array[str_replace(' ', '_', strtolower($o->getTitle()))] = $result['value'];
+                        $optionsToAdd['custom_options'] = $array;
+                    }
                 }
 
             $dataQuoteItems[] = array_merge($item, $optionsToAdd);
