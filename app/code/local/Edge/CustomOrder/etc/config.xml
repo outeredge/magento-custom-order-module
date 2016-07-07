@@ -19,6 +19,9 @@
             </adminhtml>
         </models>
         <blocks>
+            <customorder>
+                <class>Edge_CustomOrder_Block</class>
+            </customorder>
             <adminhtml>
                 <rewrite>
                     <sales_order_create_sidebar>Edge_CustomOrder_Block_Adminhtml_Sales_Order_Create_Sidebar</sales_order_create_sidebar>
@@ -55,4 +58,13 @@
             </customorder>
         </routers>
     </admin>
+    <frontend>
+        <layout>
+            <updates>
+                <edge_custom_order>
+                    <file>edge/customorder.xml</file>
+                </edge_custom_order>
+            </updates>
+        </layout>
+    </frontend>
 </config>

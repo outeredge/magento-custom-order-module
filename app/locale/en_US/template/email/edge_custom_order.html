@@ -63,6 +63,7 @@
                             <tr>
                                 <td class="action-content large">
                                     <p>Please find your quote from {{var store.getFrontendName()}} below.</p>
+                                    {{layout handle="customorder_email_quote_items" quote=$quote}}
                                     <p>If you'd like to proceed please click the 'BUY ONLINE' button below</p>
                                     <p>If you have any questions please email <a href="mailto:{{config path='trans_email/ident_custom2/email'}}">{{config path='trans_email/ident_custom2/email'}}</a></p>
                                     <table class="cta-button">

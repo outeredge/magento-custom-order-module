@@ -4,44 +4,15 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
 {
     public function sendAction()
     {
-        $quote = Mage::getSingleton('adminhtml/session_quote')->getQuote();
+        $_quote = Mage::getSingleton('adminhtml/session_quote')->getQuote();
 
-        $salesQuote = Mage::getModel('sales/quote')->getCollection()
+        $quote = Mage::getModel('sales/quote')->getCollection()
                 ->addFieldToFilter('is_active', 1)
-                ->addFieldToFilter('customer_email', $quote->getCustomerEmail())
+                ->addFieldToFilter('customer_id', $_quote->getCustomerId())
+                ->setOrder('updated_at', Varien_Db_Select::SQL_DESC)
                 ->getFirstItem();
 
-        $quoteItems = Mage::getModel('sales/quote_item')->getCollection()
-                ->addFieldToFilter('quote_id', $salesQuote->getId());
-
-        $dataQuoteItems = array();
-        foreach ($quoteItems->getData() as $item) {
-            $product = Mage::getModel('catalog/product')->load($item['product_id']);
-                $optionsToAdd = array();
-                foreach ($product->getOptions() as $o) {
-                    $result = Mage::getModel('sales/quote_item_option')->getCollection()
-                        ->addFieldToFilter('code', 'option_'.$o->getOptionId())
-                        ->addFieldToSelect('value')
-                        ->getFirstItem()->getData();
-
-                    if ($result){
-                        $array[str_replace(' ', '_', strtolower($o->getTitle()))] = $result['value'];
-                        $optionsToAdd['custom_options'] = $array;
-                    }
-                }
-
-            $dataQuoteItems[] = array_merge($item, $optionsToAdd);
-        }
-
-        $data = array('items_qty' => $salesQuote->getItemsQty(),
-                      'grand_total' => $salesQuote->getGrandTotal(),
-                      'base_grand_total' => $salesQuote->getBaseGrandTotal(),
-                      'subtotal' => $salesQuote->getSubtotal(),
-                      'base_subtotal' => $salesQuote->getBaseSubtotal(),
-                      'subtotal_with_discount' => $salesQuote->getSubtotalWithDiscount(),
-                      'base_subtotal_with_discount' => $salesQuote->getBaseSubtotalWithDiscount());
-
-        if ($quote->getData()) {
+        if ($quote) {
             try {
                 $translate = Mage::getSingleton('core/translate');
                 /* @var $translate Mage_Core_Model_Translate */
@@ -55,10 +26,9 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
                     ->sendTransactional(
                         $template,
                         'general',
-                        $quote->getCustomerEmail(),
-                        $quote->getCustomerFirstName(),
-                        array('data' => array_merge($data, $dataQuoteItems),
-                              'url'  => Mage::helper('checkout/cart')->getCartUrl())
+                        $_quote->getCustomerEmail(),
+                        $_quote->getCustomerFirstName(),
+                        array('quote'=> $quote->getId(), 'url'  => Mage::helper('checkout/cart')->getCartUrl())
                     );
 
                 $translate->setTranslateInline(true);

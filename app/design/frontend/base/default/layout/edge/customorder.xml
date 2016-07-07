@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <customorder_email_quote_items>
+        <block type="customorder/quote_email_items" name="items" template="edge/email/quote/items.phtml">
+            <!--<action method="addItemRender"><type>default</type><block>sales/quote_email_items_quote_default</block><template>email/order/items/order/default.phtml</template></action>-->
+        <!--<block type="core/text_list" name="additional.product.info" />-->
+        </block>
+    </customorder_email_quote_items>
+</layout>

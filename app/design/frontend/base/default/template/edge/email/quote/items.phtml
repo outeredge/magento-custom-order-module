@@ -1,0 +1,61 @@
+<?php // $_order = $this->getOrder() ?>
+<?php
+$quote = $this->getActiveQuote();
+?>
+<?php if ($quote): ?>
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
+    <thead>
+        <tr>
+            <th align="left" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Item')?></th>
+            <th align="center" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Qty') ?></th>
+            <th align="right" bgcolor="#EAEAEA" style="font-size:13px; padding:3px 9px"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach($quote->getAllItems() as $item): ?>
+            <tr>
+                <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+                    <strong style="font-size:11px;"><?php echo $this->escapeHtml($item->getName()) ?></strong>
+                    <dl style="margin:0; padding:0;">
+                    <?php foreach ($item->getProduct()->getTypeInstance(true)->getOrderOptions($item->getProduct()) as $optionSet): ?>
+                        <?php foreach (array_filter($optionSet) as $option): ?>
+                            <?php if(isset($option['label']) && $option['option_type'] !== 'file'):?>
+                                <dt><strong><em><?php echo $this->escapeHtml($option['label']) ?></em></strong></dt>
+                                <dd style="margin:0; padding:0 0 0 9px;">
+                                    <?php echo nl2br($option['value']) ?>
+                                </dd>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                    </dl>       
+                </td>
+                <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $item->getQty(); ?></td>
+                <td align="right" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $item->getRowTotal() ?></td>
+            </tr>
+        <?php endforeach; ?>
+        <tbody>
+            <?php foreach ($quote->getTotals() as $_code => $_total): ?>
+                <?php $total = Mage::getModel('sales/quote_address_total')->merge($_total); ?>
+                <tr class="<?php echo $_code?>">
+                    <td colspan="2" align="right" style="font-size:11px; padding:3px 9px;"><?php echo $this->escapeHtml(ucwords(str_replace('_', ' ', $_code)));?></td>
+                    <?php
+                    switch($_code){
+                        case 'subtotal':
+                            $total = $quote->getSubtotal();
+                            break;
+                        case 'tax':
+                            $total = $quote->getShippingAddress()->getData('tax_amount');
+                            break;
+                        case 'grand_total':
+                            $total = $quote->getGrandTotal();
+                            break;
+                    }
+                    ?>
+                    <td align="right" style="font-size:11px; padding:3px 9px;"><?php echo Mage::helper('checkout')->formatPrice($total); ?></td>
+                </tr>
+            <?php endforeach?>
+        </tbody>
+
+    </tbody>
+</table>
+<?php endif; ?>
