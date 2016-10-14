@@ -17,7 +17,7 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
                 $translate = Mage::getSingleton('core/translate');
                 /* @var $translate Mage_Core_Model_Translate */
                 $translate->setTranslateInline(false);
-                $storeId = Mage::app()->getStore()->getStoreId();
+                $storeId = $quote->getStoreId();
 
                 $templateConfigPath = 'customorder/email/customorder_template';
                 $template = Mage::getStoreConfig($templateConfigPath, $storeId);
