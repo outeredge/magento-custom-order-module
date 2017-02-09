@@ -18,6 +18,9 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
                 /* @var $translate Mage_Core_Model_Translate */
                 $translate->setTranslateInline(false);
                 $storeId = $quote->getStoreId();
+                
+                $referer = Mage::getUrl('checkout/cart', array('_current' => true));
+                $referer = Mage::helper('core')->urlEncode($referer);
 
                 $templateConfigPath = 'customorder/email/customorder_template';
                 $template = Mage::getStoreConfig($templateConfigPath, $storeId);
@@ -28,7 +31,10 @@ class Edge_CustomOrder_IndexController extends Mage_Adminhtml_Controller_Action
                         'general',
                         $_quote->getCustomerEmail(),
                         $_quote->getCustomerFirstName(),
-                        array('quote'=> $quote->getId(), 'url'  => Mage::helper('checkout/cart')->getCartUrl())
+                        array(
+                            'quote'=> $quote->getId(), 
+                            'url' => Mage::getUrl('customer/account/login', array('referer' => $referer))
+                        )
                     );
 
                 $translate->setTranslateInline(true);

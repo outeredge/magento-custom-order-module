@@ -66,5 +66,14 @@
                 </edge_custom_order>
             </updates>
         </layout>
+		<routers>
+			<customer>
+				<args>
+					<modules>
+						<edge_customorder before="Mage_Customer">Edge_CustomOrder</edge_customorder>
+					</modules>
+				</args>
+			</customer>
+		</routers>
     </frontend>
 </config>
