@@ -2,6 +2,11 @@
 
 class Edge_CustomOrder_Adminhtml_CustomorderController extends Mage_Adminhtml_Controller_Action
 {
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('sales/order/actions/create');
+    }
+    
     public function sendAction()
     {
         $_quote = Mage::getSingleton('adminhtml/session_quote')->getQuote();
