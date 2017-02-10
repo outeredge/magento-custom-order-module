@@ -7,7 +7,7 @@ class Edge_CustomOrder_Block_Adminhtml_Sales_Order_Create_Sidebar extends Mage_A
 
         $emailBtn = $this->getLayout()->createBlock('adminhtml/widget_button')->setData(array(
             'label'     => Mage::helper('customorder')->__('Send quote by email'),
-            'onclick' => 'order.sendQuoteEmail(\''.$this->getUrl('customorder/index/send').'\')',
+            'onclick' => 'order.sendQuoteEmail(\''.$this->getUrl('adminhtml/customorder/send').'\')',
             'before_html' => '<div class="sub-btn-set">',
             'after_html' => '</div>'
         ));

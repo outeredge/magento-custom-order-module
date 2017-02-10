@@ -49,13 +49,13 @@
     </adminhtml>
     <admin>
         <routers>
-            <customorder>
-                <use>admin</use>
+            <adminhtml>
                 <args>
-                    <module>Edge_CustomOrder</module>
-                    <frontName>customorder</frontName>
+                    <modules>
+                        <customorder before="Mage_Adminhtml">Edge_CustomOrder_Adminhtml</customorder>
+                    </modules>
                 </args>
-            </customorder>
+            </adminhtml>
         </routers>
     </admin>
     <frontend>
@@ -66,14 +66,14 @@
                 </edge_custom_order>
             </updates>
         </layout>
-		<routers>
-			<customer>
-				<args>
-					<modules>
-						<edge_customorder before="Mage_Customer">Edge_CustomOrder</edge_customorder>
-					</modules>
-				</args>
-			</customer>
-		</routers>
+        <routers>
+            <customorder>
+                <use>standard</use>
+                <args>
+                    <module>Edge_CustomOrder</module>
+                    <frontName>customorder</frontName>
+                </args>
+            </customorder>
+        </routers>
     </frontend>
 </config>
